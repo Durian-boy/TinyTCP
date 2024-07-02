@@ -57,5 +57,10 @@
     "C_Cpp.errorSquiggles": "Disabled",
     "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
     "cmake.configureOnOpen": false,
-    "editor.fontSize": 18
+    "editor.fontSize": 22,
+    "screencastMode.fontSize": 22,
+    "debug.console.fontSize": 22,
+    "terminal.integrated.fontSize": 22,
+    "chat.editor.fontSize": 22,
+    "markdown.preview.fontSize": 22
 }
