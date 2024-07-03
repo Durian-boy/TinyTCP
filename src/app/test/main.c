@@ -1,11 +1,10 @@
 ﻿#include <stdio.h>
 #include "sys_plat.h"
-#include "echo/tcp_echo_client.h"
-#include "echo/tcp_echo_server.h"
+#include "net.h"
 
-static sys_semt sem;
+static sys_sem_t sem;
 static sys_mutex_t mutex;
-static int count
+static int count;
 
 static char buffer[100];
 static int write_index, read_index, total;
@@ -56,7 +55,7 @@ void thread2_entry (void* arg) {
 		total++;
 		sys_mutex_unlock(mutex);
 
-		plat_printf("thread 2 : write data = %d\n", data);
+		plat_printf("thread 2 : write data = %d\n", i);
 
 		sys_sem_notify(read_sem);
 	}
@@ -71,24 +70,9 @@ int main(void) {
 	net_init();
 
 	net_start();
-
-	sem = sys_sem_create(0);
-	mutex = sys_mutex_create();
-
-	read_sem = sys_sem_create(0);
-	write_sem = sys_sem_create(sizeof(buffer));
-
-	// sys_thread_create(thread1_entry, "AAAA");
-	// sys_thread_create(thread2_entry, "BBBB");
-
-	// tcp_echo_client_start(friend0_ip, 5000);
-	tcp_echo_server_start(5000);
-
-	pcap_t* pcap = pcap_device_open(netdev0_phy_ip, netdev0_hwaddr);
-	while(pcap) {
-		static uint8_t buffer[1024];
-		static int counter = 0;
-		static pcap_pkthdr* pkthdr;
-		const uint8_t* pkt_data;
+	
+	while (1) {
+		sys_sleep(10);
 	}
+	return 0;
 }
