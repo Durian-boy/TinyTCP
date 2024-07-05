@@ -1,6 +1,7 @@
 ﻿#include <stdio.h>
 #include "sys_plat.h"
 #include "net.h"
+#include "dbg.h"
 
 static sys_sem_t sem;
 static sys_mutex_t mutex;
@@ -66,10 +67,24 @@ void thread2_entry (void* arg) {
 	}
 }
 
-int main(void) {
+#include "netif_pcap.h"
+
+net_err_t netdev_init(void) {
+	netif_pcap_open();
+
+	return NET_ERR_OK;
+}
+
+
+int main(void) { 
+	dbg_info("dbg_info");
+
+
 	net_init();
 
 	net_start();
+
+	netdev_init();
 	
 	while (1) {
 		sys_sleep(10);
